@@ -1,4 +1,4 @@
-export default {
-    authResponseProperty: 'RCAuthorizationResponse',
-    version: (typeof VERSION !== 'undefined' ? VERSION : 'x.x.x')
+module.exports = {
+    version: require('../../package.json').version,
+    authResponseProperty: 'RCAuthorizationResponse'
 };

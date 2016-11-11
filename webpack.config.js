@@ -1,88 +1,78 @@
 (function() {
 
     var webpack = require('webpack'),
-        path = require('path'),
-        externals = [
-            {'mocha': createExternal('mocha')},
-            {'chai': createExternal('chai', 'chai', 'chai')},
-            {'sinon': createExternal('sinon', 'sinon', 'sinon')},
-            {'sinon-chai': createExternal('sinon-chai', 'sinon-chai')},
-            {'pubnub': createExternal('pubnub', 'pubnub')},
-            {'es6-promise': createExternal('es6-promise')},
-            {'fetch-ponyfill': createExternal('fetch-ponyfill')}
-        ];
+        path = require('path');
 
-    function createExternal(cjs, amd, root) {
+    function createExternal(root, amd) {
         var ext = {};
-        if (cjs) ext['commonjs'] = cjs;
-        if (cjs) ext['commonjs2'] = cjs;
+        // if (cjs) ext['commonjs'] = cjs;
+        // if (cjs) ext['commonjs2'] = cjs;
         if (amd) ext['amd'] = amd;
         if (root) ext['root'] = root;
         return ext;
     }
 
-    function extendConfig(conf) {
+    module.exports = {
 
-        var config = {
-            context: __dirname,
-            debug: true,
-            devtool: '#source-map',
-            output: {
-                library: ['RingCentral', 'SDK'],
-                libraryTarget: 'umd',
-                path: __dirname + '/build',
-                publicPath: '/build/',
-                sourcePrefix: '',
-                filename: "[name].js",
-                chunkFilename: "[id].chunk.js"
-            },
-            resolve: {
-                extensions: ['', '.js']
-            },
-            module: {
-                loaders: [
-                    {test: /\.js$/, loader: 'babel?cacheDirectory', include: path.join(__dirname, 'src')}
-                ]
-            },
-            node: {
-                Buffer: false,
-                process: false,
-                timers: false
-            },
-            plugins: [
-                new webpack.optimize.UglifyJsPlugin({
-                    include: /\.min\.js$/,
-                    minimize: true
-                }),
-                new webpack.DefinePlugin({
-                    VERSION: JSON.stringify(require('./package.json').version)
-                })
+        context: __dirname,
+        debug: true,
+        devtool: '#source-map',
+        target: 'web',
+
+        entry: {
+            'ringcentral.js': ['./src/SDK.js'],
+            'ringcentral.min.js': ['./src/SDK.js']
+        },
+
+        externals: [
+            {'es6-promise': true},
+            {'fetch-ponyfill': true},
+            {'pubnub': {amd: 'pubnub'}}
+        ],
+
+        output: {
+            library: ['RingCentral', 'SDK'],
+            libraryTarget: 'umd',
+            path: __dirname + '/build',
+            publicPath: '/build/',
+            sourcePrefix: '',
+            filename: "[name]",
+            chunkFilename: "[id].chunk.js"
+        },
+
+        resolve: {
+            extensions: ['', '.js'],
+            alias: {
+                'fetch-mock/es5/server': 'fetch-mock/es5/client'
+            }
+        },
+
+        module: {
+            loaders: [
+                {test: /\.json$/, loader: 'json'}
             ]
-        };
+        },
 
-        Object.keys(conf).forEach(function(key) {
-            config[key] = conf[key];
-        });
+        node: {
+            http: false,
+            Buffer: false,
+            process: false,
+            timers: false
+        },
 
-        return config;
+        plugins: [
+            // new webpack.optimize.UglifyJsPlugin({
+            //     include: /\.min\.js$/,
+            //     minimize: true
+            // }),
+            // new webpack.NormalModuleReplacementPlugin(/package\.json/, function(res){
+            //     console.log(res);
+            // }),
+            // new webpack.DefinePlugin({
+            //     VERSION: JSON.stringify(require('./package.json').version)
+            // })
+        ]
 
-    }
-
-    module.exports = [
-        extendConfig({
-            entry: {
-                'ringcentral': ['./src/SDK.js'],
-                'ringcentral.min': ['./src/SDK.js']
-            },
-            externals: externals
-        }),
-        extendConfig({
-            entry: {'tests/ringcentral-tests': ['./src/test/glob.js']},
-            externals: externals.concat([
-                {'../SDK': createExternal('../ringcentral', '../ringcentral', ['RingCentral', 'SDK'])},
-                {'./SDK': createExternal('../ringcentral', '../ringcentral', ['RingCentral', 'SDK'])}
-            ])
-        })
-    ];
+    };
 
 })();

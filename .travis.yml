@@ -6,14 +6,12 @@ node_js:
   - '5'
   - '6'
   - stable
-env:
-  - CXX=g++-4.8
+cache:
+  directories:
+  - $HOME/.npm
+  - node_modules
 addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-4.8
+  firefox: latest
 deploy:
   provider: npm
   email: kirill.konshin@gmail.com
