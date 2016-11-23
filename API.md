@@ -67,6 +67,9 @@
 | Response | <code>function</code> | 
 | Headers | <code>function</code> | 
 
+
+-
+
 <a name="new_Externals_new"></a>
 
 ### new Externals()
@@ -80,6 +83,9 @@
 | [options.Request] | <code>function</code> | 
 | [options.Response] | <code>function</code> | 
 | [options.Headers] | <code>function</code> | 
+
+
+-
 
 <a name="Auth"></a>
 
@@ -102,6 +108,9 @@
     * [.refreshTokenValid()](#Auth+refreshTokenValid) ⇒ <code>boolean</code>
     * [.cancelAccessToken()](#Auth+cancelAccessToken) ⇒ <code>[Auth](#Auth)</code>
 
+
+-
+
 <a name="new_Auth_new"></a>
 
 ### new Auth()
@@ -112,10 +121,16 @@
 | options.cacheId | <code>string</code> | 
 | [options.refreshHandicapMs] | <code>int</code> | 
 
+
+-
+
 <a name="Auth+data"></a>
 
 ### auth.data() ⇒ <code>Object</code>
 **Kind**: instance method of <code>[Auth](#Auth)</code>  
+
+-
+
 <a name="Auth+setData"></a>
 
 ### auth.setData(newData) ⇒ <code>[Auth](#Auth)</code>
@@ -125,22 +140,34 @@
 | --- | --- |
 | newData | <code>object</code> | 
 
+
+-
+
 <a name="Auth+accessTokenValid"></a>
 
 ### auth.accessTokenValid() ⇒ <code>boolean</code>
 Check if there is a valid (not expired) access token
 
 **Kind**: instance method of <code>[Auth](#Auth)</code>  
+
+-
+
 <a name="Auth+refreshTokenValid"></a>
 
 ### auth.refreshTokenValid() ⇒ <code>boolean</code>
 Check if there is a valid (not expired) access token
 
 **Kind**: instance method of <code>[Auth](#Auth)</code>  
+
+-
+
 <a name="Auth+cancelAccessToken"></a>
 
 ### auth.cancelAccessToken() ⇒ <code>[Auth](#Auth)</code>
 **Kind**: instance method of <code>[Auth](#Auth)</code>  
+
+-
+
 <a name="Platform"></a>
 
 ## Platform
@@ -176,6 +203,9 @@ Check if there is a valid (not expired) access token
     * [.put(url, [body], [query], [options])](#Platform+put) ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
     * [.delete(url, [query], [options])](#Platform+delete) ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
 
+
+-
+
 <a name="new_Platform_new"></a>
 
 ### new Platform()
@@ -195,14 +225,23 @@ Check if there is a valid (not expired) access token
 | options.cache | <code>[Cache](#Cache)</code> | 
 | options.client | <code>[Client](#Client)</code> | 
 
+
+-
+
 <a name="Platform+auth"></a>
 
 ### platform.auth() ⇒ <code>[Auth](#Auth)</code>
 **Kind**: instance method of <code>[Platform](#Platform)</code>  
+
+-
+
 <a name="Platform+client"></a>
 
 ### platform.client() ⇒ <code>[Client](#Client)</code>
 **Kind**: instance method of <code>[Platform](#Platform)</code>  
+
+-
+
 <a name="Platform+createUrl"></a>
 
 ### platform.createUrl(path, [options]) ⇒ <code>string</code>
@@ -215,6 +254,9 @@ Check if there is a valid (not expired) access token
 | [options.addServer] | <code>boolean</code> | 
 | [options.addMethod] | <code>string</code> | 
 | [options.addToken] | <code>boolean</code> | 
+
+
+-
 
 <a name="Platform+loginUrl"></a>
 
@@ -230,6 +272,9 @@ Check if there is a valid (not expired) access token
 | [options.prompt] | <code>string</code> |  |
 | [options.implicit] | <code>boolean</code> | Use Implicit Grant flow |
 
+
+-
+
 <a name="Platform+parseLoginRedirect"></a>
 
 ### platform.parseLoginRedirect(url) ⇒ <code>Object</code>
@@ -238,6 +283,9 @@ Check if there is a valid (not expired) access token
 | Param | Type |
 | --- | --- |
 | url | <code>string</code> | 
+
+
+-
 
 <a name="Platform+loginWindow"></a>
 
@@ -259,10 +307,16 @@ Attention! This is an experimental method and it's signature and behavior may ch
 | [options.property] | <code>string</code> | name of window.postMessage's event data property |
 | [options.target] | <code>string</code> | target for window.open() |
 
+
+-
+
 <a name="Platform+loggedIn"></a>
 
 ### platform.loggedIn() ⇒ <code>Promise.&lt;boolean&gt;</code>
 **Kind**: instance method of <code>[Platform](#Platform)</code>  
+
+-
+
 <a name="Platform+login"></a>
 
 ### platform.login() ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
@@ -280,14 +334,23 @@ Attention! This is an experimental method and it's signature and behavior may ch
 | [options.refreshTokenTtl] | <code>string</code> | 
 | [options.access_token] | <code>string</code> | 
 
+
+-
+
 <a name="Platform+refresh"></a>
 
 ### platform.refresh() ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
 **Kind**: instance method of <code>[Platform](#Platform)</code>  
+
+-
+
 <a name="Platform+logout"></a>
 
 ### platform.logout() ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
 **Kind**: instance method of <code>[Platform](#Platform)</code>  
+
+-
+
 <a name="Platform+inflateRequest"></a>
 
 ### platform.inflateRequest(request, [options]) ⇒ <code>Promise.&lt;Request&gt;</code>
@@ -298,6 +361,9 @@ Attention! This is an experimental method and it's signature and behavior may ch
 | request | <code>Request</code> | 
 | [options] | <code>object</code> | 
 | [options.skipAuthCheck] | <code>boolean</code> | 
+
+
+-
 
 <a name="Platform+sendRequest"></a>
 
@@ -310,6 +376,9 @@ Attention! This is an experimental method and it's signature and behavior may ch
 | [options] | <code>object</code> |  |
 | [options.skipAuthCheck] | <code>boolean</code> |  |
 | [options.retry] | <code>boolean</code> | Will be set by this method if SDK makes second request |
+
+
+-
 
 <a name="Platform+send"></a>
 
@@ -327,6 +396,9 @@ General purpose function to send anything to server
 | [options.headers] | <code>object</code> | 
 | [options.skipAuthCheck] | <code>boolean</code> | 
 
+
+-
+
 <a name="Platform+get"></a>
 
 ### platform.get(url, [query], [options]) ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
@@ -339,6 +411,9 @@ General purpose function to send anything to server
 | [options] | <code>object</code> | 
 | [options.headers] | <code>object</code> | 
 | [options.skipAuthCheck] | <code>boolean</code> | 
+
+
+-
 
 <a name="Platform+post"></a>
 
@@ -354,6 +429,9 @@ General purpose function to send anything to server
 | [options.headers] | <code>object</code> | 
 | [options.skipAuthCheck] | <code>boolean</code> | 
 
+
+-
+
 <a name="Platform+put"></a>
 
 ### platform.put(url, [body], [query], [options]) ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
@@ -368,6 +446,9 @@ General purpose function to send anything to server
 | [options.headers] | <code>object</code> | 
 | [options.skipAuthCheck] | <code>boolean</code> | 
 
+
+-
+
 <a name="Platform+delete"></a>
 
 ### platform.delete(url, [query], [options]) ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
@@ -380,6 +461,9 @@ General purpose function to send anything to server
 | [options] | <code>object</code> | 
 | [options.headers] | <code>object</code> | 
 | [options.skipAuthCheck] | <code>boolean</code> | 
+
+
+-
 
 <a name="SDK"></a>
 
@@ -401,6 +485,9 @@ General purpose function to send anything to server
     * [.cache()](#SDK+cache) ⇒ <code>[Cache](#Cache)</code>
     * [.createSubscription()](#SDK+createSubscription) ⇒ <code>[Subscription](#Subscription)</code>
     * [.createCachedSubscription()](#SDK+createCachedSubscription) ⇒ <code>[CachedSubscription](#CachedSubscription)</code>
+
+
+-
 
 <a name="new_SDK_new"></a>
 
@@ -426,14 +513,23 @@ General purpose function to send anything to server
 | [options.refreshHandicapMs] | <code>int</code> | 
 | [options.clearCacheOnRefreshError] | <code>boolean</code> | 
 
+
+-
+
 <a name="SDK+platform"></a>
 
 ### sdK.platform() ⇒ <code>[Platform](#Platform)</code>
 **Kind**: instance method of <code>[SDK](#SDK)</code>  
+
+-
+
 <a name="SDK+cache"></a>
 
 ### sdK.cache() ⇒ <code>[Cache](#Cache)</code>
 **Kind**: instance method of <code>[SDK](#SDK)</code>  
+
+-
+
 <a name="SDK+createSubscription"></a>
 
 ### sdK.createSubscription() ⇒ <code>[Subscription](#Subscription)</code>
@@ -443,6 +539,9 @@ General purpose function to send anything to server
 | --- | --- |
 | [options.pollInterval] | <code>int</code> | 
 | [options.renewHandicapMs] | <code>int</code> | 
+
+
+-
 
 <a name="SDK+createCachedSubscription"></a>
 
@@ -454,6 +553,9 @@ General purpose function to send anything to server
 | options.cacheKey | <code>string</code> | 
 | [options.pollInterval] | <code>int</code> | 
 | [options.renewHandicapMs] | <code>int</code> | 
+
+
+-
 
 <a name="CachedSubscription"></a>
 
@@ -484,6 +586,9 @@ General purpose function to send anything to server
     * [.resubscribe()](#Subscription+resubscribe) ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
     * [.reset()](#Subscription+reset) ⇒ <code>[Subscription](#Subscription)</code>
 
+
+-
+
 <a name="new_CachedSubscription_new"></a>
 
 ### new CachedSubscription()
@@ -497,6 +602,9 @@ General purpose function to send anything to server
 | [options.pollInterval] | <code>int</code> | 
 | [options.renewHandicapMs] | <code>int</code> | 
 
+
+-
+
 <a name="CachedSubscription+restore"></a>
 
 ### cachedSubscription.restore(events) ⇒ <code>[CachedSubscription](#CachedSubscription)</code>
@@ -508,14 +616,23 @@ This function checks whether there are any pre-defined eventFilters in cache and
 | --- | --- |
 | events | <code>Array.&lt;string&gt;</code> | 
 
+
+-
+
 <a name="Subscription+alive"></a>
 
 ### cachedSubscription.alive() ⇒ <code>boolean</code>
 **Kind**: instance method of <code>[CachedSubscription](#CachedSubscription)</code>  
+
+-
+
 <a name="Subscription+expired"></a>
 
 ### cachedSubscription.expired() ⇒ <code>boolean</code>
 **Kind**: instance method of <code>[CachedSubscription](#CachedSubscription)</code>  
+
+-
+
 <a name="Subscription+setSubscription"></a>
 
 ### cachedSubscription.setSubscription(subscription) ⇒ <code>[Subscription](#Subscription)</code>
@@ -525,21 +642,33 @@ This function checks whether there are any pre-defined eventFilters in cache and
 | --- | --- |
 | subscription | <code>[ISubscription](#ISubscription)</code> | 
 
+
+-
+
 <a name="Subscription+subscription"></a>
 
 ### cachedSubscription.subscription() ⇒ <code>[ISubscription](#ISubscription)</code>
 **Kind**: instance method of <code>[CachedSubscription](#CachedSubscription)</code>  
 **Overrides:** <code>[subscription](#Subscription+subscription)</code>  
+
+-
+
 <a name="Subscription+register"></a>
 
 ### cachedSubscription.register() ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
 Creates or updates subscription if there is an active one
 
 **Kind**: instance method of <code>[CachedSubscription](#CachedSubscription)</code>  
+
+-
+
 <a name="Subscription+eventFilters"></a>
 
 ### cachedSubscription.eventFilters() ⇒ <code>Array.&lt;string&gt;</code>
 **Kind**: instance method of <code>[CachedSubscription](#CachedSubscription)</code>  
+
+-
+
 <a name="Subscription+addEventFilters"></a>
 
 ### cachedSubscription.addEventFilters(events) ⇒ <code>[Subscription](#Subscription)</code>
@@ -548,6 +677,9 @@ Creates or updates subscription if there is an active one
 | Param | Type |
 | --- | --- |
 | events | <code>Array.&lt;string&gt;</code> | 
+
+
+-
 
 <a name="Subscription+setEventFilters"></a>
 
@@ -558,22 +690,37 @@ Creates or updates subscription if there is an active one
 | --- | --- |
 | events | <code>Array.&lt;string&gt;</code> | 
 
+
+-
+
 <a name="Subscription+subscribe"></a>
 
 ### cachedSubscription.subscribe() ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
 **Kind**: instance method of <code>[CachedSubscription](#CachedSubscription)</code>  
+
+-
+
 <a name="Subscription+renew"></a>
 
 ### cachedSubscription.renew() ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
 **Kind**: instance method of <code>[CachedSubscription](#CachedSubscription)</code>  
+
+-
+
 <a name="Subscription+remove"></a>
 
 ### cachedSubscription.remove() ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
 **Kind**: instance method of <code>[CachedSubscription](#CachedSubscription)</code>  
+
+-
+
 <a name="Subscription+resubscribe"></a>
 
 ### cachedSubscription.resubscribe() ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
 **Kind**: instance method of <code>[CachedSubscription](#CachedSubscription)</code>  
+
+-
+
 <a name="Subscription+reset"></a>
 
 ### cachedSubscription.reset() ⇒ <code>[Subscription](#Subscription)</code>
@@ -581,6 +728,9 @@ Remove subscription and disconnect from PUBNUB
 This method resets subscription at client side but backend is not notified
 
 **Kind**: instance method of <code>[CachedSubscription](#CachedSubscription)</code>  
+
+-
+
 <a name="Subscription"></a>
 
 ## Subscription
@@ -615,6 +765,9 @@ This method resets subscription at client side but backend is not notified
     * [.resubscribe()](#Subscription+resubscribe) ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
     * [.reset()](#Subscription+reset) ⇒ <code>[Subscription](#Subscription)</code>
 
+
+-
+
 <a name="new_Subscription_new"></a>
 
 ### new Subscription()
@@ -626,14 +779,23 @@ This method resets subscription at client side but backend is not notified
 | [options.pollInterval] | <code>int</code> | 
 | [options.renewHandicapMs] | <code>int</code> | 
 
+
+-
+
 <a name="Subscription+alive"></a>
 
 ### subscription.alive() ⇒ <code>boolean</code>
 **Kind**: instance method of <code>[Subscription](#Subscription)</code>  
+
+-
+
 <a name="Subscription+expired"></a>
 
 ### subscription.expired() ⇒ <code>boolean</code>
 **Kind**: instance method of <code>[Subscription](#Subscription)</code>  
+
+-
+
 <a name="Subscription+setSubscription"></a>
 
 ### subscription.setSubscription(subscription) ⇒ <code>[Subscription](#Subscription)</code>
@@ -643,20 +805,32 @@ This method resets subscription at client side but backend is not notified
 | --- | --- |
 | subscription | <code>[ISubscription](#ISubscription)</code> | 
 
+
+-
+
 <a name="Subscription+subscription"></a>
 
 ### subscription.subscription() ⇒ <code>[ISubscription](#ISubscription)</code>
 **Kind**: instance method of <code>[Subscription](#Subscription)</code>  
+
+-
+
 <a name="Subscription+register"></a>
 
 ### subscription.register() ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
 Creates or updates subscription if there is an active one
 
 **Kind**: instance method of <code>[Subscription](#Subscription)</code>  
+
+-
+
 <a name="Subscription+eventFilters"></a>
 
 ### subscription.eventFilters() ⇒ <code>Array.&lt;string&gt;</code>
 **Kind**: instance method of <code>[Subscription](#Subscription)</code>  
+
+-
+
 <a name="Subscription+addEventFilters"></a>
 
 ### subscription.addEventFilters(events) ⇒ <code>[Subscription](#Subscription)</code>
@@ -665,6 +839,9 @@ Creates or updates subscription if there is an active one
 | Param | Type |
 | --- | --- |
 | events | <code>Array.&lt;string&gt;</code> | 
+
+
+-
 
 <a name="Subscription+setEventFilters"></a>
 
@@ -675,22 +852,37 @@ Creates or updates subscription if there is an active one
 | --- | --- |
 | events | <code>Array.&lt;string&gt;</code> | 
 
+
+-
+
 <a name="Subscription+subscribe"></a>
 
 ### subscription.subscribe() ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
 **Kind**: instance method of <code>[Subscription](#Subscription)</code>  
+
+-
+
 <a name="Subscription+renew"></a>
 
 ### subscription.renew() ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
 **Kind**: instance method of <code>[Subscription](#Subscription)</code>  
+
+-
+
 <a name="Subscription+remove"></a>
 
 ### subscription.remove() ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
 **Kind**: instance method of <code>[Subscription](#Subscription)</code>  
+
+-
+
 <a name="Subscription+resubscribe"></a>
 
 ### subscription.resubscribe() ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
 **Kind**: instance method of <code>[Subscription](#Subscription)</code>  
+
+-
+
 <a name="Subscription+reset"></a>
 
 ### subscription.reset() ⇒ <code>[Subscription](#Subscription)</code>
@@ -698,6 +890,9 @@ Remove subscription and disconnect from PUBNUB
 This method resets subscription at client side but backend is not notified
 
 **Kind**: instance method of <code>[Subscription](#Subscription)</code>  
+
+-
+
 <a name="IApiError"></a>
 
 ## IApiError
@@ -710,10 +905,16 @@ This method resets subscription at client side but backend is not notified
 | originalMessage | <code>string</code> | 
 | apiResponse | <code>[ApiResponse](#ApiResponse)</code> | 
 
+
+-
+
 <a name="RingCentral"></a>
 
 ## RingCentral : <code>object</code>
 **Kind**: global namespace  
+
+-
+
 <a name="Cache"></a>
 
 ## Cache()
@@ -729,6 +930,9 @@ This method resets subscription at client side but backend is not notified
 | Name | Type |
 | --- | --- |
 | _externals | <code>[Externals](#Externals)</code> | 
+
+
+-
 
 <a name="ApiResponse"></a>
 
@@ -765,6 +969,9 @@ This method resets subscription at client side but backend is not notified
     * [.toMultipart()](#ApiResponse+toMultipart) ⇒ <code>[Array.&lt;ApiResponse&gt;](#ApiResponse)</code>
     * [.multipart()](#ApiResponse+multipart) ⇒ <code>[Array.&lt;ApiResponse&gt;](#ApiResponse)</code>
 
+
+-
+
 <a name="ApiResponse+receiveResponse"></a>
 
 ### apiResponse.receiveResponse(response) ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
@@ -774,26 +981,44 @@ This method resets subscription at client side but backend is not notified
 | --- | --- |
 | response | <code>Response</code> | 
 
+
+-
+
 <a name="ApiResponse+response"></a>
 
 ### apiResponse.response() ⇒ <code>Response</code>
 **Kind**: instance method of <code>[ApiResponse](#ApiResponse)</code>  
+
+-
+
 <a name="ApiResponse+request"></a>
 
 ### apiResponse.request() ⇒ <code>Request</code>
 **Kind**: instance method of <code>[ApiResponse](#ApiResponse)</code>  
+
+-
+
 <a name="ApiResponse+ok"></a>
 
 ### apiResponse.ok() ⇒ <code>boolean</code>
 **Kind**: instance method of <code>[ApiResponse](#ApiResponse)</code>  
+
+-
+
 <a name="ApiResponse+text"></a>
 
 ### apiResponse.text() ⇒ <code>string</code>
 **Kind**: instance method of <code>[ApiResponse](#ApiResponse)</code>  
+
+-
+
 <a name="ApiResponse+json"></a>
 
 ### apiResponse.json() ⇒ <code>object</code>
 **Kind**: instance method of <code>[ApiResponse](#ApiResponse)</code>  
+
+-
+
 <a name="ApiResponse+error"></a>
 
 ### apiResponse.error([skipOKCheck]) ⇒ <code>string</code>
@@ -803,16 +1028,25 @@ This method resets subscription at client side but backend is not notified
 | --- |
 | [skipOKCheck] | 
 
+
+-
+
 <a name="ApiResponse+toMultipart"></a>
 
 ### apiResponse.toMultipart() ⇒ <code>[Array.&lt;ApiResponse&gt;](#ApiResponse)</code>
 If it is not known upfront what would be the response, client code can treat any response as multipart
 
 **Kind**: instance method of <code>[ApiResponse](#ApiResponse)</code>  
+
+-
+
 <a name="ApiResponse+multipart"></a>
 
 ### apiResponse.multipart() ⇒ <code>[Array.&lt;ApiResponse&gt;](#ApiResponse)</code>
 **Kind**: instance method of <code>[ApiResponse](#ApiResponse)</code>  
+
+-
+
 <a name="Client"></a>
 
 ## Client(externals)
@@ -834,6 +1068,9 @@ If it is not known upfront what would be the response, client code can treat any
     * [.makeError(e, apiResponse)](#Client+makeError) ⇒ <code>[IApiError](#IApiError)</code>
     * [.createRequest(init)](#Client+createRequest) ⇒ <code>Request</code>
 
+
+-
+
 <a name="Client+sendRequest"></a>
 
 ### client.sendRequest(request) ⇒ <code>[Promise.&lt;ApiResponse&gt;](#ApiResponse)</code>
@@ -842,6 +1079,9 @@ If it is not known upfront what would be the response, client code can treat any
 | Param | Type |
 | --- | --- |
 | request | <code>Request</code> | 
+
+
+-
 
 <a name="Client+makeError"></a>
 
@@ -854,6 +1094,9 @@ Wraps the JS Error object with transaction information
 | --- | --- |
 | e | <code>Error</code> &#124; <code>[IApiError](#IApiError)</code> | 
 | apiResponse | <code>[ApiResponse](#ApiResponse)</code> | 
+
+
+-
 
 <a name="Client+createRequest"></a>
 
@@ -871,6 +1114,9 @@ Wraps the JS Error object with transaction information
 | [init.credentials] | <code>object</code> | 
 | [init.mode] | <code>object</code> | 
 
+
+-
+
 <a name="asyncTest"></a>
 
 ## asyncTest(fn) ⇒ <code>function</code>
@@ -879,6 +1125,9 @@ Wraps the JS Error object with transaction information
 | Param | Type |
 | --- | --- |
 | fn | <code>function</code> | 
+
+
+-
 
 <a name="ISubscription"></a>
 
@@ -903,4 +1152,7 @@ The complete Triforce, or one or more components of the Triforce.
 | deliveryMode.secretKey | <code>string</code> |  |
 | creationTime | <code>string</code> |  |
 | status | <code>string</code> | Active |
+
+
+-
 

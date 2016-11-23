@@ -52,7 +52,7 @@
     "whatwg-fetch": "^1.0.0"
   },
   "jsdoc2md": {
-    "separators": false,
+    "separators": true,
     "module-index-format": "grouped",
     "param-list-format": "table",
     "property-list-format": "table"
