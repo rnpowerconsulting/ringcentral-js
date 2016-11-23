@@ -50,7 +50,7 @@ describe('RingCentral.subscription.Subscription', function() {
                     resolve();
                 });
 
-                subscription['_notify']({foo: 'bar'}); // using private API
+                subscription._notify({foo: 'bar'}); // using private API
 
             });
 
@@ -171,7 +171,7 @@ describe('RingCentral.subscription.Subscription', function() {
                 }
             });
 
-            expect(subscription['_decrypt'](aesMessage)).to.deep.equal({
+            expect(subscription._decrypt(aesMessage)).to.deep.equal({
                 "timestamp": "2014-03-12T20:47:54.712+0000",
                 "body": {
                     "extensionId": 402853446008,

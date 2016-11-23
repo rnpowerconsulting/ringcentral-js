@@ -142,7 +142,7 @@ Client.prototype.createRequest = function(init) {
     }
 
     if (!(findHeaderName('Accept', init.headers))) {
-        init.headers['Accept'] = ApiResponse._jsonContentType;
+        init.headers.Accept = ApiResponse._jsonContentType;
     }
 
     // Serialize body

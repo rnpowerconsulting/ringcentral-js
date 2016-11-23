@@ -62,14 +62,9 @@
   },
   "jshintConfig": {
     "curly": false,
-    "eqeqeq": false,
     "expr": true,
     "indent": 4,
-    "latedef": true,
-    "laxbreak": true,
-    "plusplus": false,
-    "shadow": true,
-    "sub": true
+    "latedef": true
   },
   "preferGlobal": false,
   "private": false,

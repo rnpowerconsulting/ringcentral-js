@@ -4,7 +4,7 @@ describe('RingCentral.platform.Platform', function() {
 
         it('should have predefined server', asyncTest(function(sdk) {
 
-            expect(sdk.platform()['_server']).to.equal('http://whatever');
+            expect(sdk.platform()._server).to.equal('http://whatever');
 
         }));
 

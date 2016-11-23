@@ -59,15 +59,14 @@ function Platform(options) {
     this._refreshDelayMs = options.refreshDelayMs || 100;
 
     /** @private */
-    this._clearCacheOnRefreshError = typeof options.clearCacheOnRefreshError !== 'undefined'
-        ? options.clearCacheOnRefreshError
-        : true;
+    this._clearCacheOnRefreshError = typeof options.clearCacheOnRefreshError !== 'undefined' ?
+                                     options.clearCacheOnRefreshError :
+                                     true;
 
     /** @private */
     this._userAgent = (options.appName ?
                       (options.appName + (options.appVersion ? '/' + options.appVersion : '')) + ' ' :
-                       '') +
-                      'RCJSSDK/' + Constants.version;
+                       '') + 'RCJSSDK/' + Constants.version;
 
     /** @private */
     this._externals = options.externals;
@@ -273,7 +272,7 @@ Platform.prototype.loginWindow = function(options) {
 
                 resolve(loginOptions);
 
-            /* jshint -W002 */
+                /* jshint -W002 */
             } catch (e) {
                 reject(e);
             }
