@@ -1,5 +1,7 @@
 (function() {
 
+    process.env.NODE_ENV = 'production';
+
     var webpack = require('webpack');
     var path = require('path');
 
@@ -56,6 +58,12 @@
             new webpack.optimize.UglifyJsPlugin({
                 include: /\.min\.js$/,
                 minimize: true
+            }),
+            new webpack.DefinePlugin({
+                "process.env": {
+                    NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+                    RCSDK_VERSION: JSON.stringify(require('./package.json').version)
+                }
             })
         ]
 

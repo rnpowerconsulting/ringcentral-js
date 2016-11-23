@@ -62,8 +62,8 @@ var Cache = __webpack_require__(2);
 var Client = __webpack_require__(3);
 var Externals = __webpack_require__(11);
 var Platform = __webpack_require__(15);
-var Subscription = __webpack_require__(19);
-var CachedSubscription = __webpack_require__(20);
+var Subscription = __webpack_require__(18);
+var CachedSubscription = __webpack_require__(19);
 var Constants = __webpack_require__(17);
 
 /**
@@ -2208,110 +2208,20 @@ module.exports = Auth;
 /* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
+var version = ("3.0.0-rc3");
+
+// This will become false during the Webpack build, so no traces of package.json will be there
+if (false) {
+    version = require('../../package.json').version;
+}
+
 module.exports = {
-    version: __webpack_require__(18).version,
+    version: version,
     authResponseProperty: 'RCAuthorizationResponse'
 };
 
 /***/ },
 /* 18 */
-/***/ function(module, exports) {
-
-module.exports = {
-	"name": "ringcentral",
-	"version": "3.0.0-rc3",
-	"scripts": {
-		"clean": "rm -rf build/*",
-		"build": "npm run clean && ./node_modules/.bin/webpack --display-modules --progress --colors --bail",
-		"watch": "npm run build -- --watch",
-		"test": "npm run hint && npm run build && npm run istanbul && npm run karma && npm run karma-webpack",
-		"mocha": "mocha --require ./src/test/test.js ./src/**/*-spec.js",
-		"mocha-watch": "npm run mocha -- --watch",
-		"mocha-api": "mocha ./test-api/**/*-spec.js",
-		"karma": "karma start karma.conf.js",
-		"karma-watch": "npm run karma -- --no-single-run --auto-watch",
-		"karma-webpack": "karma start karma.conf.webpack.js",
-		"karma-webpack-watch": "npm run karma-webpack -- --no-single-run --auto-watch",
-		"istanbul": "istanbul cover --dir=./build/coverage --report=lcov _mocha -- --require ./src/test/test.js --reporter spec ./src/**/*-spec.js",
-		"tsd": "tsd reinstall -so",
-		"start": "http-server -p 3030",
-		"docs": "jsdoc2md 'src/**/*!(test).js' > API.md",
-		"hint": "jshint src/**/*.js"
-	},
-	"dependencies": {
-		"es6-promise": "^3.0.2",
-		"fetch-ponyfill": "^3.0.0",
-		"is-plain-object": "^2.0.1",
-		"object-assign": "^4.1.0",
-		"pubnub": "^3.16.3"
-	},
-	"devDependencies": {
-		"chai": "^3.5.0",
-		"fetch-mock": "^5.5.0",
-		"http-server": "^0.9.0",
-		"istanbul": "^0.4.1",
-		"jsdoc-to-markdown": "^2.0.1",
-		"jshint": "^2.9.4",
-		"json-loader": "^0.5.4",
-		"karma": "^0.13.22",
-		"karma-chai-plugins": "^0.7.0",
-		"karma-chrome-launcher": "^0.2.3",
-		"karma-coverage": "^0.5.3",
-		"karma-firefox-launcher": "^0.1.7",
-		"karma-html-reporter": "^0.2.6",
-		"karma-mocha": "^0.2.0",
-		"karma-mocha-reporter": "^2.0.0",
-		"karma-phantomjs-launcher": "^1.0.0",
-		"karma-sourcemap-loader": "^0.3.5",
-		"karma-webpack": "^1.7.0",
-		"mocha": "^2.4.5",
-		"phantomjs-prebuilt": "^2.1.7",
-		"sinon": "^1.17.3",
-		"sinon-chai": "^2.8.0",
-		"soap": "^0.13.0",
-		"webpack": "^1.12.14",
-		"whatwg-fetch": "^1.0.0"
-	},
-	"jsdoc2md": {
-		"separators": true,
-		"module-index-format": "grouped",
-		"param-list-format": "table",
-		"property-list-format": "table"
-	},
-	"jshintConfig": {
-		"curly": false,
-		"expr": true,
-		"indent": 4,
-		"latedef": true
-	},
-	"preferGlobal": false,
-	"private": false,
-	"main": "./src/SDK.js",
-	"author": {
-		"name": "RingCentral, Inc.",
-		"email": "devsupport@ringcentral.com"
-	},
-	"contributors": [
-		{
-			"name": "Kirill Konshin"
-		}
-	],
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/ringcentral/ringcentral-js.git"
-	},
-	"bugs": {
-		"url": "https://github.com/ringcentral/ringcentral-js/issues"
-	},
-	"homepage": "https://github.com/ringcentral/ringcentral-js",
-	"engines": {
-		"node": ">=0.10.36"
-	},
-	"license": "MIT"
-};
-
-/***/ },
-/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 var EventEmitter = __webpack_require__(6).EventEmitter;
@@ -2752,10 +2662,10 @@ module.exports = Subscription;
  */
 
 /***/ },
-/* 20 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
-var Subscription = __webpack_require__(19);
+var Subscription = __webpack_require__(18);
 
 /**
  * @param {Platform} options.platform
