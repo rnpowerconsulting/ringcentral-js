@@ -35,59 +35,6 @@
     var expect = chai.expect;
     var spy = sinon.spy;
 
-    /**
-     * @global
-     * @param {function(SDK)} fn
-     * @return {function()}
-     */
-    function asyncTest(fn) {
-
-        return function() {
-
-            var sdk = new SDK({
-                server: 'http://whatever',
-                appKey: 'whatever',
-                appSecret: 'whatever',
-                Headers: fetchMock.Headers,
-                Request: fetchMock.Request,
-                Response: fetchMock.Response,
-                fetch: fetchMock.fetchMock,
-                refreshDelayMs: 1
-            });
-
-            function clean() {
-                fetchMock.restore();
-                sdk.cache().clean();
-            }
-
-            return new Promise(function(resolve, reject) {
-
-                clean();
-
-                authentication();
-
-                var platofrm = sdk.platform();
-
-                resolve(platofrm.login({
-                    username: 'whatever',
-                    password: 'whatever'
-                }));
-
-            }).then(function() {
-                return fn(sdk);
-            }).then(function() {
-                expect(fetchMock.done()).to.equal(true);
-                clean();
-            }).catch(function(e) {
-                clean();
-                throw e;
-            });
-
-        };
-
-    }
-
-
     function apiCall(method, path, json, status, statusText, headers) {
 
         status = status || 200;
@@ -223,6 +170,58 @@
             }, 400);
 
         }
+
+    }
+
+    /**
+     * @global
+     * @param {function(SDK)} fn
+     * @return {function()}
+     */
+    function asyncTest(fn) {
+
+        return function() {
+
+            var sdk = new SDK({
+                server: 'http://whatever',
+                appKey: 'whatever',
+                appSecret: 'whatever',
+                Headers: fetchMock.Headers,
+                Request: fetchMock.Request,
+                Response: fetchMock.Response,
+                fetch: fetchMock.fetchMock,
+                refreshDelayMs: 1
+            });
+
+            function clean() {
+                fetchMock.restore();
+                sdk.cache().clean();
+            }
+
+            return new Promise(function(resolve, reject) {
+
+                clean();
+
+                authentication();
+
+                var platofrm = sdk.platform();
+
+                resolve(platofrm.login({
+                    username: 'whatever',
+                    password: 'whatever'
+                }));
+
+            }).then(function() {
+                return fn(sdk);
+            }).then(function() {
+                expect(fetchMock.done()).to.equal(true);
+                clean();
+            }).catch(function(e) {
+                clean();
+                throw e;
+            });
+
+        };
 
     }
 

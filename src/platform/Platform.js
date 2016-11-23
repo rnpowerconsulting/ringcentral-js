@@ -103,7 +103,7 @@ Platform.prototype.delay = function(timeout) {
     return new this._externals.Promise(function(resolve, reject) {
         setTimeout(function() {
             resolve(null);
-        }, timeout)
+        }, timeout);
     });
 };
 
@@ -173,7 +173,7 @@ Platform.prototype.loginUrl = function(options) {
             'brand_id': options.brandId || '',
             'display': options.display || '',
             'prompt': options.prompt || ''
-        }), {addServer: true})
+        }), {addServer: true});
 
 };
 
@@ -240,8 +240,8 @@ Platform.prototype.loginWindow = function(options) {
         options.property = options.property || Constants.authResponseProperty;
         options.target = options.target || '_blank';
 
-        var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
-        var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
+        var dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left;
+        var dualScreenTop = window.screenTop !== undefined ? window.screenTop : screen.top;
 
         var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
         var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
@@ -273,6 +273,7 @@ Platform.prototype.loginWindow = function(options) {
 
                 resolve(loginOptions);
 
+            /* jshint -W002 */
             } catch (e) {
                 reject(e);
             }

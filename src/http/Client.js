@@ -3,6 +3,15 @@ var EventEmitter = require("events").EventEmitter;
 var ApiResponse = require("./ApiResponse");
 var qs = require("querystring");
 
+function findHeaderName(name, headers) {
+    name = name.toLowerCase();
+    return Object.keys(headers).reduce(function(res, key) {
+        if (res) return res;
+        if (name == key.toLowerCase()) return key;
+        return res;
+    }, null);
+}
+
 /**
  * @param {Externals} externals
  * @property {Externals} _externals
@@ -173,17 +182,8 @@ Client.prototype.createRequest = function(init) {
 
 };
 
-function findHeaderName(name, headers) {
-    name = name.toLowerCase();
-    return Object.keys(headers).reduce(function(res, key) {
-        if (res) return res;
-        if (name == key.toLowerCase()) return key;
-        return res;
-    }, null);
-}
-
 /**
- * @name IApiError
+ * @typedef {object} IApiError
  * @property {string} stack
  * @property {string} originalMessage
  * @property {ApiResponse} apiResponse

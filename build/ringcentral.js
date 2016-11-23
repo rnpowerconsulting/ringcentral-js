@@ -7,7 +7,7 @@
 		exports["SDK"] = factory(require(undefined), require("es6-promise"), require("fetch-ponyfill"));
 	else
 		root["RingCentral"] = root["RingCentral"] || {}, root["RingCentral"]["SDK"] = factory(root[undefined], root["es6-promise"], root["fetch-ponyfill"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_13__, __WEBPACK_EXTERNAL_MODULE_14__, __WEBPACK_EXTERNAL_MODULE_15__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_13__, __WEBPACK_EXTERNAL_MODULE_14__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -54,24 +54,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(1);
-
-
-/***/ },
-/* 1 */
-/***/ function(module, exports, __webpack_require__) {
-
 /**
  * @namespace RingCentral
  */
-var objectAssign = __webpack_require__(2);
-var Cache = __webpack_require__(3);
-var Client = __webpack_require__(4);
-var Externals = __webpack_require__(12);
-var Platform = __webpack_require__(16);
-var Subscription = __webpack_require__(20);
-var CachedSubscription = __webpack_require__(21);
-var Constants = __webpack_require__(18);
+var objectAssign = __webpack_require__(1);
+var Cache = __webpack_require__(2);
+var Client = __webpack_require__(3);
+var Externals = __webpack_require__(11);
+var Platform = __webpack_require__(15);
+var Subscription = __webpack_require__(19);
+var CachedSubscription = __webpack_require__(20);
+var Constants = __webpack_require__(17);
 
 /**
  * @constructor
@@ -83,31 +76,35 @@ var Constants = __webpack_require__(18);
  * @param {string} [options.appVersion]
  * @param {string} [options.redirectUri]
  * @param {PUBNUB} [options.PUBNUB]
- * @param {typeof Promise} [options.Promise]
+ * @param {function(new:Promise)} [options.Promise]
  * @param {Storage} [options.localStorage]
  * @param {fetch} [options.fetch]
- * @param {typeof Request} [options.Request]
- * @param {typeof Response} [options.Response]
- * @param {typeof Headers} [options.Headers]
+ * @param {function(new:Request)} [options.Request]
+ * @param {function(new:Response)} [options.Response]
+ * @param {function(new:Headers)} [options.Headers]
  * @param {int} [options.refreshDelayMs]
  * @param {int} [options.refreshHandicapMs]
  * @param {boolean} [options.clearCacheOnRefreshError]
+ * @property {Externals} _externals
+ * @property {Cache} _cache
+ * @property {Client} _client
+ * @property {Platform} _platform
  */
 function SDK(options) {
 
-    /** @type {Externals} */
+    /** @private */
     this._externals = new Externals(options);
 
-    /** @type {Cache} */
+    /** @private */
     this._cache = new Cache({
         externals: this._externals,
         cachePrefix: options.cachePrefix
     });
 
-    /** @type {Client} */
+    /** @private */
     this._client = new Client(this._externals);
 
-    /** @type {Platform} */
+    /** @private */
     this._platform = new Platform(objectAssign({}, options, {
         externals: this._externals,
         client: this._client,
@@ -183,7 +180,7 @@ SDK.handleLoginRedirect = function(origin) {
 module.exports = SDK;
 
 /***/ },
-/* 2 */
+/* 1 */
 /***/ function(module, exports) {
 
 'use strict';
@@ -272,18 +269,20 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ },
-/* 3 */
+/* 2 */
 /***/ function(module, exports) {
 
 /**
  * @param {Externals} options.externals
  * @param {string} [options.prefix]
+ * @property {Externals} _externals
  */
 function Cache(options) {
 
+    /** @private */
     this._prefix = options.prefix || Cache.defaultPrefix;
 
-    /** @type {Externals} */
+    /** @private */
     this._externals = options.externals;
 
 }
@@ -329,22 +328,32 @@ Cache.prototype._prefixKey = function(key) {
 module.exports = Cache;
 
 /***/ },
-/* 4 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-var isPlainObject = __webpack_require__(5);
-var EventEmitter = __webpack_require__(7).EventEmitter;
-var ApiResponse = __webpack_require__(8);
-var qs = __webpack_require__(9);
+var isPlainObject = __webpack_require__(4);
+var EventEmitter = __webpack_require__(6).EventEmitter;
+var ApiResponse = __webpack_require__(7);
+var qs = __webpack_require__(8);
+
+function findHeaderName(name, headers) {
+    name = name.toLowerCase();
+    return Object.keys(headers).reduce(function(res, key) {
+        if (res) return res;
+        if (name == key.toLowerCase()) return key;
+        return res;
+    }, null);
+}
 
 /**
  * @param {Externals} externals
+ * @property {Externals} _externals
  */
 function Client(externals) {
 
     EventEmitter.call(this);
 
-    /** @type {Externals} */
+    /** @private */
     this._externals = externals;
 
     this.events = {
@@ -506,17 +515,8 @@ Client.prototype.createRequest = function(init) {
 
 };
 
-function findHeaderName(name, headers) {
-    name = name.toLowerCase();
-    return Object.keys(headers).reduce(function(res, key) {
-        if (res) return res;
-        if (name == key.toLowerCase()) return key;
-        return res;
-    }, null);
-}
-
 /**
- * @name IApiError
+ * @typedef {object} IApiError
  * @property {string} stack
  * @property {string} originalMessage
  * @property {ApiResponse} apiResponse
@@ -525,7 +525,7 @@ function findHeaderName(name, headers) {
 module.exports = Client;
 
 /***/ },
-/* 5 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 /*!
@@ -537,7 +537,7 @@ module.exports = Client;
 
 'use strict';
 
-var isObject = __webpack_require__(6);
+var isObject = __webpack_require__(5);
 
 function isObjectObject(o) {
   return isObject(o) === true
@@ -568,7 +568,7 @@ module.exports = function isPlainObject(o) {
 
 
 /***/ },
-/* 6 */
+/* 5 */
 /***/ function(module, exports) {
 
 /*!
@@ -587,7 +587,7 @@ module.exports = function isObject(val) {
 
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -895,7 +895,7 @@ function isUndefined(arg) {
 
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports) {
 
 /**
@@ -903,20 +903,31 @@ function isUndefined(arg) {
  * @param {Request} [options.request]
  * @param {Response} [options.response]
  * @param {string} [options.responseText]
+ * @property {Externals} _externals
+ * @property {Request} _request
+ * @property {Response} _response
+ * @property {string} _text
+ * @property {object} _json
+ * @property {ApiResponse[]} _multipart
  */
 function ApiResponse(options) {
 
-    /** @type {Externals} */
+    /** @private */
     this._externals = options.externals;
 
-    /** @type {Request} */
+    /** @private */
     this._request = options.request;
 
-    /** @type {Response} */
+    /** @private */
     this._response = options.response;
 
+    /** @private */
     this._text = options.responseText || '';
+
+    /** @private */
     this._json = null;
+
+    /** @private */
     this._multipart = [];
 
 }
@@ -1073,18 +1084,30 @@ ApiResponse.prototype.multipart = function() {
 
 };
 
+/**
+ * @private
+ */
 ApiResponse.prototype._isContentType = function(contentType) {
     return this._getContentType().indexOf(contentType) > -1;
 };
 
+/**
+ * @private
+ */
 ApiResponse.prototype._getContentType = function() {
     return this._response.headers.get(ApiResponse._contentType) || '';
 };
 
+/**
+ * @private
+ */
 ApiResponse.prototype._isMultipart = function() {
     return this._isContentType(ApiResponse._multipartContentType);
 };
 
+/**
+ * @private
+ */
 ApiResponse.prototype._isJson = function() {
     return this._isContentType(ApiResponse._jsonContentType);
 };
@@ -1094,6 +1117,7 @@ ApiResponse.prototype._isJson = function() {
  * @param {string} [text]
  * @param {number} [status]
  * @param {string} [statusText]
+ * @private
  * @return {ApiResponse}
  */
 ApiResponse.prototype._create = function(text, status, statusText) {
@@ -1140,17 +1164,17 @@ ApiResponse.prototype._create = function(text, status, statusText) {
 module.exports = ApiResponse;
 
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 'use strict';
 
-exports.decode = exports.parse = __webpack_require__(10);
-exports.encode = exports.stringify = __webpack_require__(11);
+exports.decode = exports.parse = __webpack_require__(9);
+exports.encode = exports.stringify = __webpack_require__(10);
 
 
 /***/ },
-/* 10 */
+/* 9 */
 /***/ function(module, exports) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -1236,7 +1260,7 @@ module.exports = function(qs, sep, eq, options) {
 
 
 /***/ },
-/* 11 */
+/* 10 */
 /***/ function(module, exports) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -1306,52 +1330,47 @@ module.exports = function(obj, sep, eq, name) {
 
 
 /***/ },
-/* 12 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {var pubnub = __webpack_require__(13);
-var es6Promise = __webpack_require__(14);
-var FetchPonyfill = __webpack_require__(15);
+/* WEBPACK VAR INJECTION */(function(global) {var pubnub = __webpack_require__(12);
+var es6Promise = __webpack_require__(13);
+var FetchPonyfill = __webpack_require__(14);
 
 var root = (typeof window !== "undefined" && window) ||
-             (typeof global !== "undefined" && global) ||
-             Function("return this;")();
+           (typeof global !== "undefined" && global) ||
+           (function(){ return this; })();
 
 /**
  * @constructor
  * @param {PUBNUB} [options.PUBNUB]
- * @param {typeof Promise} [options.Promise]
+ * @param {function(new:Promise)} [options.Promise]
  * @param {Storage} [options.localStorage]
  * @param {fetch} [options.fetch]
- * @param {typeof Request} [options.Request]
- * @param {typeof Response} [options.Response]
- * @param {typeof Headers} [options.Headers]
+ * @param {function(new:Request)} [options.Request]
+ * @param {function(new:Response)} [options.Response]
+ * @param {function(new:Headers)} [options.Headers]
+ * @property {PUBNUB} PUBNUB
+ * @property {Storage} localStorage
+ * @property {function(new:Promise)} Promise
+ * @property {fetch} fetch
+ * @property {function(new:Request)} Request
+ * @property {function(new:Response)} Response
+ * @property {function(new:Headers)} Headers
  */
 function Externals(options) {
 
     options = options || {};
 
-    /** @type {PUBNUB} */
     this.PUBNUB = options.PUBNUB || root.PUBNUB || pubnub;
-
-    /** @type {typeof Storage} */
     this.localStorage = options.localStorage || ((typeof root.localStorage !== 'undefined') ? root.localStorage : {});
-
-    /** @type {typeof Promise} */
     this.Promise = options.Promise || root.Promise || (es6Promise && es6Promise.Promise);
 
     var fetchPonyfill = FetchPonyfill ? FetchPonyfill({Promise: this.Promise}) : {};
 
-    /** @type {fetch} */
     this.fetch = options.fetch || root.fetch || fetchPonyfill.fetch;
-
-    /** @type {typeof Request} */
     this.Request = options.Request || root.Request || fetchPonyfill.Request;
-
-    /** @type {typeof Response} */
     this.Response = options.Response || root.Response || fetchPonyfill.Response;
-
-    /** @type {typeof Headers} */
     this.Headers = options.Headers || root.Headers || fetchPonyfill.Headers;
 
     if (!this.fetch || !this.Response || !this.Request || !this.Headers) {
@@ -1377,6 +1396,12 @@ module.exports = Externals;
 /* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_12__;
+
+/***/ },
 /* 13 */
 /***/ function(module, exports) {
 
@@ -1390,20 +1415,14 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_14__;
 
 /***/ },
 /* 15 */
-/***/ function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_15__;
-
-/***/ },
-/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
-var EventEmitter = __webpack_require__(7).EventEmitter;
-var qs = __webpack_require__(9);
-var objectAssign = __webpack_require__(2);
-var Auth = __webpack_require__(17);
-var Constants = __webpack_require__(18);
-var ApiResponse = __webpack_require__(8);
+var EventEmitter = __webpack_require__(6).EventEmitter;
+var qs = __webpack_require__(8);
+var objectAssign = __webpack_require__(1);
+var Auth = __webpack_require__(16);
+var Constants = __webpack_require__(17);
+var ApiResponse = __webpack_require__(7);
 
 /**
  * @constructor
@@ -1419,6 +1438,11 @@ var ApiResponse = __webpack_require__(8);
  * @param {Externals} options.externals
  * @param {Cache} options.cache
  * @param {Client} options.client
+ * @property {Externals} _externals
+ * @property {Cache} _cache
+ * @property {Client} _client
+ * @property {Promise<ApiResponse>} _refreshPromise
+ * @property {Auth} _auth
  */
 function Platform(options) {
 
@@ -1438,27 +1462,45 @@ function Platform(options) {
 
     options = options || {};
 
+    /** @private */
     this._server = options.server;
+
+    /** @private */
     this._appKey = options.appKey;
+
+    /** @private */
     this._appSecret = options.appSecret;
+
+    /** @private */
     this._redirectUri = options.redirectUri || '';
+
+    /** @private */
     this._refreshDelayMs = options.refreshDelayMs || 100;
-    this._clearCacheOnRefreshError = typeof options.clearCacheOnRefreshError !== 'undefined' ? options.clearCacheOnRefreshError : true;
-    this._userAgent = (options.appName ? (options.appName + (options.appVersion ? '/' + options.appVersion : '')) + ' ' : '') +
+
+    /** @private */
+    this._clearCacheOnRefreshError = typeof options.clearCacheOnRefreshError !== 'undefined'
+        ? options.clearCacheOnRefreshError
+        : true;
+
+    /** @private */
+    this._userAgent = (options.appName ?
+                      (options.appName + (options.appVersion ? '/' + options.appVersion : '')) + ' ' :
+                       '') +
                       'RCJSSDK/' + Constants.version;
 
-    /** @type {Externals} */
+    /** @private */
     this._externals = options.externals;
 
-    /** @type {Cache} */
+    /** @private */
     this._cache = options.cache;
 
-    /** @type {Client} */
+    /** @private */
     this._client = options.client;
 
-    /** @type {Promise<ApiResponse>} */
+    /** @private */
     this._refreshPromise = null;
 
+    /** @private */
     this._auth = new Auth({
         cache: this._cache,
         cacheId: Platform._cacheId,
@@ -1480,7 +1522,7 @@ Platform.prototype.delay = function(timeout) {
     return new this._externals.Promise(function(resolve, reject) {
         setTimeout(function() {
             resolve(null);
-        }, timeout)
+        }, timeout);
     });
 };
 
@@ -1550,7 +1592,7 @@ Platform.prototype.loginUrl = function(options) {
             'brand_id': options.brandId || '',
             'display': options.display || '',
             'prompt': options.prompt || ''
-        }), {addServer: true})
+        }), {addServer: true});
 
 };
 
@@ -1617,8 +1659,8 @@ Platform.prototype.loginWindow = function(options) {
         options.property = options.property || Constants.authResponseProperty;
         options.target = options.target || '_blank';
 
-        var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
-        var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
+        var dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left;
+        var dualScreenTop = window.screenTop !== undefined ? window.screenTop : screen.top;
 
         var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
         var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
@@ -1650,6 +1692,7 @@ Platform.prototype.loginWindow = function(options) {
 
                 resolve(loginOptions);
 
+            /* jshint -W002 */
             } catch (e) {
                 reject(e);
             }
@@ -1899,8 +1942,7 @@ Platform.prototype.sendRequest = function(request, options) {
     }.bind(this)).catch(function(e) {
 
         // Guard is for errors that come from polling
-        if (!e.apiResponse ||
-            !e.apiResponse.response() ||
+        if (!e.apiResponse || !e.apiResponse.response() ||
             (e.apiResponse.response().status != ApiResponse._unauthorizedStatus) ||
             options.retry) throw e;
 
@@ -1985,6 +2027,17 @@ Platform.prototype['delete'] = function(url, query, options) {
     return this.send(objectAssign({}, {method: 'DELETE', url: url, query: query}, options));
 };
 
+Platform.prototype.ensureLoggedIn = function() {
+    if (this._isAccessTokenValid()) return this._externals.Promise.resolve();
+    return this.refresh();
+};
+
+/**
+ * @param path
+ * @param body
+ * @return {Promise.<ApiResponse>}
+ * @private
+ */
 Platform.prototype._tokenRequest = function(path, body) {
 
     return this.send({
@@ -2000,20 +2053,27 @@ Platform.prototype._tokenRequest = function(path, body) {
 
 };
 
-Platform.prototype.ensureLoggedIn = function() {
-    if (this._isAccessTokenValid()) return this._externals.Promise.resolve();
-    return this.refresh();
-};
-
+/**
+ * @return {boolean}
+ * @private
+ */
 Platform.prototype._isAccessTokenValid = function() {
     return this._auth.accessTokenValid();
 };
 
+/**
+ * @return {string}
+ * @private
+ */
 Platform.prototype._apiKey = function() {
     var apiKey = this._appKey + ':' + this._appSecret;
     return (typeof btoa == 'function') ? btoa(apiKey) : new Buffer(apiKey).toString('base64');
 };
 
+/**
+ * @return {string}
+ * @private
+ */
 Platform.prototype._authHeader = function() {
     var token = this._auth.accessToken();
     return this._auth.tokenType() + (token ? ' ' + token : '');
@@ -2022,7 +2082,7 @@ Platform.prototype._authHeader = function() {
 module.exports = Platform;
 
 /***/ },
-/* 17 */
+/* 16 */
 /***/ function(module, exports) {
 
 /**
@@ -2030,14 +2090,19 @@ module.exports = Platform;
  * @param {string} options.cacheId
  * @param {int} [options.refreshHandicapMs]
  * @constructor
+ * @property {Cache} _cache
+ * @property {int} _refreshHandicapMs
+ * @property {string} _cacheId
  */
 function Auth(options) {
 
-    /** @type {Cache} */
+    /** @private */
     this._cache = options.cache;
 
+    /** @private */
     this._cacheId = options.cacheId;
 
+    /** @private */
     this._refreshHandicapMs = options.refreshHandicapMs || 60 * 1000; // 1 minute
 
 }
@@ -2141,16 +2206,16 @@ module.exports = Auth;
 
 
 /***/ },
-/* 18 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 module.exports = {
-    version: __webpack_require__(19).version,
+    version: __webpack_require__(18).version,
     authResponseProperty: 'RCAuthorizationResponse'
 };
 
 /***/ },
-/* 19 */
+/* 18 */
 /***/ function(module, exports) {
 
 module.exports = {
@@ -2160,8 +2225,9 @@ module.exports = {
 		"clean": "rm -rf build/*",
 		"build": "npm run clean && ./node_modules/.bin/webpack --display-modules --progress --colors --bail",
 		"watch": "npm run build -- --watch",
-		"test": "npm run build && npm run istanbul && npm run karma && npm run karma-webpack",
+		"test": "npm run hint && npm run build && npm run istanbul && npm run karma && npm run karma-webpack",
 		"mocha": "mocha --require ./src/test/test.js ./src/**/*-spec.js",
+		"mocha-watch": "npm run mocha -- --watch",
 		"mocha-api": "mocha ./test-api/**/*-spec.js",
 		"karma": "karma start karma.conf.js",
 		"karma-watch": "npm run karma -- --no-single-run --auto-watch",
@@ -2169,7 +2235,9 @@ module.exports = {
 		"karma-webpack-watch": "npm run karma-webpack -- --no-single-run --auto-watch",
 		"istanbul": "istanbul cover --dir=./build/coverage --report=lcov _mocha -- --require ./src/test/test.js --reporter spec ./src/**/*-spec.js",
 		"tsd": "tsd reinstall -so",
-		"start": "http-server -p 3030"
+		"start": "http-server -p 3030",
+		"docs": "jsdoc2md 'src/**/*!(test).js' > API.md",
+		"hint": "jshint src/**/*.js"
 	},
 	"dependencies": {
 		"es6-promise": "^3.0.2",
@@ -2183,6 +2251,8 @@ module.exports = {
 		"fetch-mock": "^5.5.0",
 		"http-server": "^0.9.0",
 		"istanbul": "^0.4.1",
+		"jsdoc-to-markdown": "^2.0.1",
+		"jshint": "^2.9.4",
 		"json-loader": "^0.5.4",
 		"karma": "^0.13.22",
 		"karma-chai-plugins": "^0.7.0",
@@ -2200,8 +2270,26 @@ module.exports = {
 		"sinon": "^1.17.3",
 		"sinon-chai": "^2.8.0",
 		"soap": "^0.13.0",
+		"virtual-module-webpack-plugin": "^0.1.1",
 		"webpack": "^1.12.14",
 		"whatwg-fetch": "^1.0.0"
+	},
+	"jsdoc2md": {
+		"separators": true,
+		"module-index-format": "grouped",
+		"param-list-format": "table",
+		"property-list-format": "table"
+	},
+	"jshintConfig": {
+		"curly": false,
+		"eqeqeq": false,
+		"expr": true,
+		"indent": 4,
+		"latedef": true,
+		"laxbreak": true,
+		"plusplus": false,
+		"shadow": true,
+		"sub": true
 	},
 	"preferGlobal": false,
 	"private": false,
@@ -2230,16 +2318,24 @@ module.exports = {
 };
 
 /***/ },
-/* 20 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
-var EventEmitter = __webpack_require__(7).EventEmitter;
+var EventEmitter = __webpack_require__(6).EventEmitter;
 
 /**
  * @param {Platform} options.platform
  * @param {Externals} options.externals
  * @param {int} [options.pollInterval]
  * @param {int} [options.renewHandicapMs]
+ * @property {Externals} _externals
+ * @property {Platform} _platform
+ * @property {int} _pollInterval
+ * @property {int} _renewHandicapMs
+ * @property {PUBNUB} _pubnub
+ * @property {string} _pubnubLastChannel
+ * @property {int} _timeout
+ * @property {ISubscription} _subscription
  * @constructor
  */
 function Subscription(options) {
@@ -2258,17 +2354,28 @@ function Subscription(options) {
         subscribeError: 'subscribeError'
     };
 
-    /** @type {Externals} */
+    /** @private */
     this._externals = options.externals;
 
-    /** @type {Platform} */
+    /** @private */
     this._platform = options.platform;
 
+    /** @private */
     this._pollInterval = options.pollInterval || 10 * 1000;
+
+    /** @private */
     this._renewHandicapMs = options.renewHandicapMs || 2 * 60 * 1000;
+
+    /** @private */
     this._pubnub = null;
+
+    /** @private */
     this._pubnubLastChannel = null;
+
+    /** @private */
     this._timeout = null;
+
+    /** @private */
     this._subscription = null;
 
 }
@@ -2305,6 +2412,10 @@ Subscription.prototype.expirationTime = function() {
     return new Date(this.subscription().expirationTime || 0).getTime() - this._renewHandicapMs;
 };
 
+/**
+ * @param {ISubscription} subscription
+ * @return {Subscription}
+ */
 Subscription.prototype.setSubscription = function(subscription) {
 
     subscription = subscription || {};
@@ -2318,6 +2429,9 @@ Subscription.prototype.setSubscription = function(subscription) {
 
 };
 
+/**
+ * @return {ISubscription}
+ */
 Subscription.prototype.subscription = function() {
     return this._subscription || {};
 };
@@ -2336,6 +2450,9 @@ Subscription.prototype.register = function() {
 
 };
 
+/**
+ * @return {string[]}
+ */
 Subscription.prototype.eventFilters = function() {
     return this.subscription().eventFilters || [];
 };
@@ -2480,6 +2597,7 @@ Subscription.prototype.resubscribe = function() {
 /**
  * Remove subscription and disconnect from PUBNUB
  * This method resets subscription at client side but backend is not notified
+ * @return {Subscription}
  */
 Subscription.prototype.reset = function() {
     this._clearTimeout();
@@ -2488,10 +2606,18 @@ Subscription.prototype.reset = function() {
     return this;
 };
 
+/**
+ * @param subscription
+ * @private
+ */
 Subscription.prototype._setSubscription = function(subscription) {
     this._subscription = subscription;
 };
 
+/**
+ * @return {string[]}
+ * @private
+ */
 Subscription.prototype._getFullEventFilters = function() {
 
     return this.eventFilters().map(function(event) {
@@ -2500,6 +2626,10 @@ Subscription.prototype._getFullEventFilters = function() {
 
 };
 
+/**
+ * @return {Subscription}
+ * @private
+ */
 Subscription.prototype._setTimeout = function() {
 
     this._clearTimeout();
@@ -2522,6 +2652,10 @@ Subscription.prototype._setTimeout = function() {
 
 };
 
+/**
+ * @return {Subscription}
+ * @private
+ */
 Subscription.prototype._clearTimeout = function() {
     clearInterval(this._timeout);
     return this;
@@ -2546,11 +2680,20 @@ Subscription.prototype._decrypt = function(message) {
 
 };
 
+/**
+ * @param message
+ * @return {Subscription}
+ * @private
+ */
 Subscription.prototype._notify = function(message) {
     this.emit(this.events.notification, this._decrypt(message));
     return this;
 };
 
+/**
+ * @return {Subscription}
+ * @private
+ */
 Subscription.prototype._subscribeAtPubnub = function() {
 
     if (!this.alive()) throw new Error('Subscription is not alive');
@@ -2597,30 +2740,29 @@ Subscription.prototype._subscribeAtPubnub = function() {
 
 module.exports = Subscription;
 
-//export interface ISubscription {
-//    id?:string;
-//    uri?: string;
-//    eventFilters?:string[];
-//    expirationTime?:string; // 2014-03-12T19:54:35.613Z
-//    expiresIn?:number;
-//    deliveryMode?: {
-//        transportType?:string;
-//        encryption?:boolean;
-//        address?:string;
-//        subscriberKey?:string;
-//        encryptionKey?:string;
-//        secretKey?:string;
-//    };
-//    creationTime?:string; // 2014-03-12T19:54:35.613Z
-//    status?:string; // Active
-//}
-
+/**
+ * The complete Triforce, or one or more components of the Triforce.
+ * @typedef {Object} ISubscription
+ * @property {string} [id]
+ * @property {string} [uri]
+ * @property {string[]} [eventFilters]
+ * @property {string} [expirationTime] Format: 2014-03-12T19:54:35.613Z
+ * @property {int} [expiresIn]
+ * @property {string} [deliveryMode.transportType]
+ * @property {boolean} [deliveryMode.encryption]
+ * @property {string} [deliveryMode.address]
+ * @property {string} [deliveryMode.subscriberKey]
+ * @property {string} [deliveryMode.encryptionKey]
+ * @property {string} [deliveryMode.secretKey]
+ * @property {string} [creationTime]
+ * @property {string} [status] Active
+ */
 
 /***/ },
-/* 21 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
-var Subscription = __webpack_require__(20);
+var Subscription = __webpack_require__(19);
 
 /**
  * @param {Platform} options.platform
@@ -2631,6 +2773,8 @@ var Subscription = __webpack_require__(20);
  * @param {int} [options.renewHandicapMs]
  * @return {CachedSubscription}
  * @constructor
+ * @property {Cache} _cache
+ * @extends Subscription
  */
 function CachedSubscription(options) {
 
@@ -2638,15 +2782,16 @@ function CachedSubscription(options) {
 
     if (!options.cacheKey) throw new Error('Cached Subscription requires cacheKey parameter to be defined');
 
+    /** @private */
     this._cacheKey = options.cacheKey;
 
     Subscription.call(this, options);
 
-    /** @type {Cache} */
+    /** @private */
     this._cache = options.cache;
 
     // This is not used in this class
-    this._subscription = null;
+    this._subscription = undefined;
 
 }
 

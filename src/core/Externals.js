@@ -4,7 +4,7 @@ var FetchPonyfill = require("fetch-ponyfill");
 
 var root = (typeof window !== "undefined" && window) ||
            (typeof global !== "undefined" && global) ||
-           Function("return this;")();
+           (function(){ return this; })();
 
 /**
  * @constructor

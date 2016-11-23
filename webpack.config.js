@@ -1,16 +1,7 @@
 (function() {
 
-    var webpack = require('webpack'),
-        path = require('path');
-
-    function createExternal(root, amd) {
-        var ext = {};
-        // if (cjs) ext['commonjs'] = cjs;
-        // if (cjs) ext['commonjs2'] = cjs;
-        if (amd) ext['amd'] = amd;
-        if (root) ext['root'] = root;
-        return ext;
-    }
+    var webpack = require('webpack');
+    var path = require('path');
 
     module.exports = {
 
@@ -20,8 +11,8 @@
         target: 'web',
 
         entry: {
-            'ringcentral.js': ['./src/SDK.js'],
-            'ringcentral.min.js': ['./src/SDK.js']
+            'ringcentral': './src/SDK.js',
+            'ringcentral.min': './src/SDK.js'
         },
 
         externals: [
@@ -36,13 +27,14 @@
             path: __dirname + '/build',
             publicPath: '/build/',
             sourcePrefix: '',
-            filename: "[name]",
+            filename: "[name].js",
             chunkFilename: "[id].chunk.js"
         },
 
         resolve: {
             extensions: ['', '.js'],
             alias: {
+                //FIXME @see https://github.com/wheresrhys/fetch-mock/issues/150
                 'fetch-mock/es5/server': 'fetch-mock/es5/client'
             }
         },
@@ -61,16 +53,10 @@
         },
 
         plugins: [
-            // new webpack.optimize.UglifyJsPlugin({
-            //     include: /\.min\.js$/,
-            //     minimize: true
-            // }),
-            // new webpack.NormalModuleReplacementPlugin(/package\.json/, function(res){
-            //     console.log(res);
-            // }),
-            // new webpack.DefinePlugin({
-            //     VERSION: JSON.stringify(require('./package.json').version)
-            // })
+            new webpack.optimize.UglifyJsPlugin({
+                include: /\.min\.js$/,
+                minimize: true
+            })
         ]
 
     };

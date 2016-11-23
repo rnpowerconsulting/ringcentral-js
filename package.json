@@ -5,7 +5,7 @@
     "clean": "rm -rf build/*",
     "build": "npm run clean && ./node_modules/.bin/webpack --display-modules --progress --colors --bail",
     "watch": "npm run build -- --watch",
-    "test": "npm run build && npm run istanbul && npm run karma && npm run karma-webpack",
+    "test": "npm run hint && npm run build && npm run istanbul && npm run karma && npm run karma-webpack",
     "mocha": "mocha --require ./src/test/test.js ./src/**/*-spec.js",
     "mocha-watch": "npm run mocha -- --watch",
     "mocha-api": "mocha ./test-api/**/*-spec.js",
@@ -16,7 +16,8 @@
     "istanbul": "istanbul cover --dir=./build/coverage --report=lcov _mocha -- --require ./src/test/test.js --reporter spec ./src/**/*-spec.js",
     "tsd": "tsd reinstall -so",
     "start": "http-server -p 3030",
-    "docs": "jsdoc2md 'src/**/*!(test).js' > API.md"
+    "docs": "jsdoc2md 'src/**/*!(test).js' > API.md",
+    "hint": "jshint src/**/*.js"
   },
   "dependencies": {
     "es6-promise": "^3.0.2",
@@ -31,6 +32,7 @@
     "http-server": "^0.9.0",
     "istanbul": "^0.4.1",
     "jsdoc-to-markdown": "^2.0.1",
+    "jshint": "^2.9.4",
     "json-loader": "^0.5.4",
     "karma": "^0.13.22",
     "karma-chai-plugins": "^0.7.0",
@@ -48,6 +50,7 @@
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
     "soap": "^0.13.0",
+    "virtual-module-webpack-plugin": "^0.1.1",
     "webpack": "^1.12.14",
     "whatwg-fetch": "^1.0.0"
   },
@@ -56,6 +59,17 @@
     "module-index-format": "grouped",
     "param-list-format": "table",
     "property-list-format": "table"
+  },
+  "jshintConfig": {
+    "curly": false,
+    "eqeqeq": false,
+    "expr": true,
+    "indent": 4,
+    "latedef": true,
+    "laxbreak": true,
+    "plusplus": false,
+    "shadow": true,
+    "sub": true
   },
   "preferGlobal": false,
   "private": false,
