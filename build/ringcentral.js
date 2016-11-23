@@ -475,7 +475,7 @@ Client.prototype.createRequest = function(init) {
     }
 
     if (!(findHeaderName('Accept', init.headers))) {
-        init.headers['Accept'] = ApiResponse._jsonContentType;
+        init.headers.Accept = ApiResponse._jsonContentType;
     }
 
     // Serialize body
@@ -1478,15 +1478,14 @@ function Platform(options) {
     this._refreshDelayMs = options.refreshDelayMs || 100;
 
     /** @private */
-    this._clearCacheOnRefreshError = typeof options.clearCacheOnRefreshError !== 'undefined'
-        ? options.clearCacheOnRefreshError
-        : true;
+    this._clearCacheOnRefreshError = typeof options.clearCacheOnRefreshError !== 'undefined' ?
+                                     options.clearCacheOnRefreshError :
+                                     true;
 
     /** @private */
     this._userAgent = (options.appName ?
                       (options.appName + (options.appVersion ? '/' + options.appVersion : '')) + ' ' :
-                       '') +
-                      'RCJSSDK/' + Constants.version;
+                       '') + 'RCJSSDK/' + Constants.version;
 
     /** @private */
     this._externals = options.externals;
@@ -1692,7 +1691,7 @@ Platform.prototype.loginWindow = function(options) {
 
                 resolve(loginOptions);
 
-            /* jshint -W002 */
+                /* jshint -W002 */
             } catch (e) {
                 reject(e);
             }
@@ -2220,7 +2219,7 @@ module.exports = {
 
 module.exports = {
 	"name": "ringcentral",
-	"version": "3.0.0-rc2",
+	"version": "3.0.0-rc3",
 	"scripts": {
 		"clean": "rm -rf build/*",
 		"build": "npm run clean && ./node_modules/.bin/webpack --display-modules --progress --colors --bail",
@@ -2270,7 +2269,6 @@ module.exports = {
 		"sinon": "^1.17.3",
 		"sinon-chai": "^2.8.0",
 		"soap": "^0.13.0",
-		"virtual-module-webpack-plugin": "^0.1.1",
 		"webpack": "^1.12.14",
 		"whatwg-fetch": "^1.0.0"
 	},
@@ -2282,14 +2280,9 @@ module.exports = {
 	},
 	"jshintConfig": {
 		"curly": false,
-		"eqeqeq": false,
 		"expr": true,
 		"indent": 4,
-		"latedef": true,
-		"laxbreak": true,
-		"plusplus": false,
-		"shadow": true,
-		"sub": true
+		"latedef": true
 	},
 	"preferGlobal": false,
 	"private": false,
