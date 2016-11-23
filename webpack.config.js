@@ -16,8 +16,8 @@
         },
 
         externals: [
-            {'es6-promise': true},
-            {'fetch-ponyfill': true},
+            {'es6-promise': {amd: 'es6-promise'}},
+            {'fetch-ponyfill': {amd: 'fetch-ponyfill'}},
             {'pubnub': {amd: 'pubnub'}}
         ],
 

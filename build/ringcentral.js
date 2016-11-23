@@ -1,12 +1,12 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require(undefined), require("es6-promise"), require("fetch-ponyfill"));
+		module.exports = factory(require(undefined), require(undefined), require(undefined));
 	else if(typeof define === 'function' && define.amd)
 		define(["pubnub", "es6-promise", "fetch-ponyfill"], factory);
 	else if(typeof exports === 'object')
-		exports["SDK"] = factory(require(undefined), require("es6-promise"), require("fetch-ponyfill"));
+		exports["SDK"] = factory(require(undefined), require(undefined), require(undefined));
 	else
-		root["RingCentral"] = root["RingCentral"] || {}, root["RingCentral"]["SDK"] = factory(root[undefined], root["es6-promise"], root["fetch-ponyfill"]);
+		root["RingCentral"] = root["RingCentral"] || {}, root["RingCentral"]["SDK"] = factory(root[undefined], root[undefined], root[undefined]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_13__, __WEBPACK_EXTERNAL_MODULE_14__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
